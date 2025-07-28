@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: 'Roboto', sans-serif;
+}
+
+body {
+background: #f0f2f5;
+}
+
+container {
+display: flex;
+justify-content: center;
+align-items: center;
+min-height: 100vh;
+}
+
+facebook-page {
+display: flex;
+flex-direction: column;
+align-items: center;
+background: #fff;
+padding: 20px;
+border-radius: 8px;
+box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
+}
+
+.text h1 {
+color: #1877f2;
+font-size: 3rem;
+}
+
+.text p {
+font-size: 1.2rem;
+}
+
+.form {
+width: 100%;
+}
+
+.form input {
+width: calc(100% - 20px);
+margin-bottom: 15px;
+padding: 10px;
+border-radius: 6px;
+}
+
+.login {
+background-color: #1877f2;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+<div class="facebook-page">
+<div class="text">
+<h1>facebook</h1>
+<p>Connect with friends and the world around you on Facebook.</p>
+</div>
+<form action="#">
+<input type="email" placeholder="Email or phone number" required>
+<input type="password" placeholder="Password" required>
+<div class="link">
+<button type="submit" class="login">Login</button>
+<a href="#" class="forgot">Forgot password?</a>
+</div>
+<hr>
+<div class="button">
+<a href="#">Create new account</a>
+</div>
+</form>
+</div>
+</div>
+</body>
+</html>

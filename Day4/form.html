@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook Style Login</title>
+    <style>
+        body {
+            background: #f4efef;
+            font-family: Arial, sans-serif;
+        }
+        .fb-container {
+            width: 360px;
+            margin: 60px auto;
+            background: #ffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 32px 24px 24px 24px;
+        }
+        .fb-title {
+            color: #1877f2;
+            font-size: 32px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+        .fb-subtitle {
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 24px;
+            color: #606770;
+        }
+        .fb-form input[type="text"],
+        .fb-form input[type="password"],
+        .fb-form input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 16px 0;
+            border: 1px solid #dddfe2;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        .fb-form label {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 15px;
+            color: #1c1e21;
+            text-align: left;
+        }
+        .fb-form .gender-group {
+            margin-bottom: 16px;
+            text-align: left;
+        }
+        .fb-form .gender-group label {
+            display: inline-block;
+            margin-right: 16px;
+            font-weight: normal;
+        }
+        .fb-form button {
+            width: 100%;
+            background: #1877f2;
+            color: #fff;
+            border: none;
+            padding: 12px 0;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+        .fb-form button:hover {
+            background: #23ad19;
+        }
+    </style>
+</head>
+<body>
+    <div class="fb-container">
+        <div class="fb-title">facebook</div>
+        <div class="fb-subtitle">Create a new account</div>
+        <form class="fb-form">
+            <label for="fname">First Name</label>
+            <input type="text" id="fname" placeholder="First name">
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" placeholder="Last name">
+            <label for="dob">D.O.B</label>
+            <input type="date" id="dob">
+            <div class="gender-group">
+                <label>Gender:</label>
+                <label><input type="radio" name="gender"> Male</label>
+                <label><input type="radio" name="gender"> Female</label>
+            </div>
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Password">
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+</body>
+</html>
