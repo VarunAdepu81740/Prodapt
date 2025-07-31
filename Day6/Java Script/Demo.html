@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: antiquewhite;
+        }
+        .container{
+            text-align: center;
+            width: 500px;
+            height: 500px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: auto;
+            padding: 20px;
+        }
+    </style>
+    <script>
+        function myfunc() {
+            var uname=document.getElementById("uname").value;
+            var pwd=document.getElementById("pwd").value;
+            alert("Username: " + uname + "\nPassword: " + pwd);
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Hi Welcome</h1>
+        <br>
+        Username: <input type="text" id="uname" placeholder="Enter your username">
+        <br><br>
+        Password: <input type="password" id="pwd" placeholder="Enter your password">
+        <br><br>
+        <button type="submit" onclick="myfunc()">Submit</button>
+    </div>
+</body>
+</html>

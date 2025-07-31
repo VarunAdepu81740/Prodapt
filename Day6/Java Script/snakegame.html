@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Snake Game</title>
+  <style>
+    body {
+      margin: 0;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    canvas {
+      background: #111;
+      border: 2px solid #0f0;
+    }
+  </style>
+</head>
+<body>
+   <div class="game-container">
+    <h1 id="title">Snake Game</h1>
+    <div id="scoreboard">Score: <span id="score">0</span></div>
+    <canvas id="game" width="400" height="400"></canvas>
+  </div>
+  <script>
+    const canvas = document.getElementById('game');
+    const ctx = canvas.getContext('2d');
+    const scoreElem = document.getElementById('score');
+
+    const scale = 20;
+    const rows = canvas.height / scale;
+    const columns = canvas.width / scale;
+
+    let snake;
+    let food;
+    let score = 0;
+    let intervalId;
+
+    class Snake {
+      constructor() {
+        this.body = [{ x: 0, y: 0 }];
+        this.xSpeed = scale;
+        this.ySpeed = 0;
+        this.eaten = false;
+      }
+
+      draw() {
+        ctx.shadowColor = '#0f0';
+        ctx.shadowBlur = 10;
+        for (let i = 0; i < this.body.length; i++) {
+          ctx.fillStyle = i === this.body.length - 1 ? '#0ff' : '#0f0';
+          ctx.fillRect(this.body[i].x, this.body[i].y, scale, scale);
+        }
+        ctx.shadowBlur = 0;
+      }
+
+      update() {
+        const head = { ...this.body[this.body.length - 1] };
+
+        head.x += this.xSpeed;
+        head.y += this.ySpeed;
+
+        // wrap around
+        if (head.x >= canvas.width) head.x = 0;
+        if (head.y >= canvas.height) head.y = 0;
+        if (head.x < 0) head.x = canvas.width - scale;
+        if (head.y < 0) head.y = canvas.height - scale;
+
+        this.body.push(head);
+
+        // remove tail unless food was eaten
+        if (!this.eaten) {
+          this.body.shift();
+        } else {
+          this.eaten = false;
+        }
+      }
+
+      changeDirection(dir) {
+        switch (dir) {
+          case 'Up':
+            if (this.ySpeed === 0) {
+              this.xSpeed = 0;
+              this.ySpeed = -scale;
+            }
+            break;
+          case 'Down':
+            if (this.ySpeed === 0) {
+              this.xSpeed = 0;
+              this.ySpeed = scale;
+            }
+            break;
+          case 'Left':
+            if (this.xSpeed === 0) {
+              this.xSpeed = -scale;
+              this.ySpeed = 0;
+            }
+            break;
+          case 'Right':
+            if (this.xSpeed === 0) {
+              this.xSpeed = scale;
+              this.ySpeed = 0;
+            }
+            break;
+        }
+      }
+
+      eat(food) {
+        const head = this.body[this.body.length - 1];
+        if (head.x === food.x && head.y === food.y) {
+          this.eaten = true;
+          return true;
+        }
+        return false;
+      }
+
+      checkCollision() {
+        const head = this.body[this.body.length - 1];
+        for (let i = 0; i < this.body.length - 1; i++) {
+          if (this.body[i].x === head.x && this.body[i].y === head.y) {
+            setTimeout(() => {
+              alert("Game Over! Your score: " + score);
+              resetGame();
+            }, 100);
+          }
+        }
+      }
+    }
+
+    class Food {
+      constructor() {
+        this.pickLocation();
+      }
+
+      pickLocation() {
+        this.x = Math.floor(Math.random() * columns) * scale;
+        this.y = Math.floor(Math.random() * rows) * scale;
+      }
+
+      draw() {
+        ctx.save();
+        ctx.shadowColor = '#f00';
+        ctx.shadowBlur = 15;
+        ctx.fillStyle = '#f00';
+        ctx.fillRect(this.x, this.y, scale, scale);
+        ctx.restore();
+      }
+    }
+
+    function resetGame() {
+      clearInterval(intervalId);
+      score = 0;
+      scoreElem.textContent = score;
+      snake = new Snake();
+      food = new Food();
+      intervalId = setInterval(gameLoop, 150);
+    }
+
+    function gameLoop() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      food.draw();
+      snake.update();
+      snake.draw();
+
+      if (snake.eat(food)) {
+        food.pickLocation();
+        score++;
+        scoreElem.textContent = score;
+      }
+
+      snake.checkCollision();
+    }
+
+    function setup() {
+      snake = new Snake();
+      food = new Food();
+      score = 0;
+      scoreElem.textContent = score;
+      intervalId = setInterval(gameLoop, 150);
+    }
+
+    window.addEventListener('keydown', (e) => {
+      const dir = e.key.replace('Arrow', '');
+      snake.changeDirection(dir);
+    });
+
+    setup();
+  </script>
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #232526 0%, #414345 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .game-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: rgba(30, 30, 30, 0.95);
+      padding: 30px 40px 40px 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    }
+    #title {
+      color: #0ff;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+    }
+    #scoreboard {
+      color: #fff;
+      font-size: 1.3em;
+      margin-bottom: 15px;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #222;
+      padding: 8px 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px #0ff2;
+    }
+    #score {
+      color: #0f0;
+      font-weight: bold;
+      font-size: 1.2em;
+      text-shadow: 0 0 8px #0f0;
+    }
+    canvas {
+      background: #111;
+      border: 3px solid #0ff;
+      border-radius: 12px;
+      box-shadow: 0 0 24px #0ff4;
+      margin-top: 10px;
+    }
+  </style>
+</body>
+</html>

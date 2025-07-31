@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blur Example</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <style>
+    body {
+      background-image: url(prodapthighres.jpg);
+    }
+    .container {
+      text-align: center;
+      width: 500px;
+      height: 500px;
+      background-color: rgba(255,255,255,0.8);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin: 60px auto;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <marquee direction="right" onmouseover="this.stop()" onmouseout="this.start()">
+      <h1>Hi Welcome</h1>
+    </marquee>
+
+    <form class="form-inline">
+      First Name :
+      <input type="text" id="fname" placeholder="Enter your first name" class="form-control"><br><br>
+      Last Name :
+      <input type="text" id="lname" placeholder="Enter your last name" class="form-control"><br><br>
+      Full Name :
+      <input type="text" id="fullname" placeholder="Full name" onfocus="myfunc()" class="form-control">
+    </form>
+  </div>
+
+  <script>
+    // When full name input is focused, update it with first + last name
+    function myfunc() {
+      var fn = document.getElementById('fname').value;
+      var ln = document.getElementById('lname').value;
+      var fulln = fn + " " + ln;
+      document.getElementById("fullname").value = fulln;
+    }
+
+    // This function is called when any input loses focus
+    function handleBlur(event) {
+      event.target.style.backgroundColor = "antiquewhite";
+      console.log("Blurred input:", event.target.id);
+    }
+
+    // Attach blur event to all text inputs when page loads
+    window.onload = function () {
+      var inputs = document.querySelectorAll("input[type='text']");
+      inputs.forEach(function(input) {
+        input.addEventListener("blur", handleBlur);
+      });
+    };
+  </script>
+</body>
+</html>
