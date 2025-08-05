@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    function myfunc() {
+        document.getElementById("length").innerHTML = "Length : " + document.getElementById("uname").value.length;
+        document.getElementById("lowercase").innerHTML="Lower Case : "+document.getElementById("uname").value.toLowerCase();
+        document.getElementById("uppercase").innerHTML="Upper Case : "+document.getElementById("uname").value.toUpperCase();
+    }
+</script>
+<body>
+    <input type="text" id="uname">
+    <button type="button" onclick="myfunc()">Submit</button>
+    <br><br>
+    <p id="length"></p>
+    <br>
+    <p id="lowercase"></p>
+    <br>
+    <p id="uppercase"></p>
+</body>
+</html>
